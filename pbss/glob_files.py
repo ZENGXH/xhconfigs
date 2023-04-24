@@ -2,7 +2,7 @@ import boto3
 import botocore
 from glob import glob
 import json
-s3_config = "./team_scripts/s3/pbss_credentials_text2hd3d.secret"
+s3_config = "pbss_credentials.secret"
 s3_config = json.load(open(s3_config, 'r'))
 # Set up S3 client
 s3 = boto3.client('s3', **s3_config)
