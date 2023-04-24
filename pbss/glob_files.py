@@ -8,7 +8,7 @@ s3_config = json.load(open(s3_config, 'r'))
 s3 = boto3.client('s3', **s3_config)
 
 bucket = 'xzeng'
-prefix = "data/t3d_data/gen_input/zekun_render_ts_0424"
+prefix = "data/"
 
 paginator = s3.get_paginator('list_objects_v2')
 page_iterator = paginator.paginate(Bucket=bucket, Prefix=prefix)
