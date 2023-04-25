@@ -71,3 +71,21 @@ def _load_from_s3(s3_bucket, file_path, s3_client):
         except Exception:
             print(f'Loading checkpoint, attempt: {attempt}')
     raise ConnectionError(f'Unable to read checkpoints after {attempt}')
+
+def check_exist_in_s3(file_path, s3_config):
+    # file_path: s3://bucket/key
+    # import boto3
+    # from botocore.exceptions import ClientError
+
+    s3 = boto3.client('s3', **s3_config)
+    bucket_name = file_path.split('/')[2]
+    object_name = file_path.split(bucket_name + '/')[-1]
+
+    try:
+        s3.head_object(Bucket=bucket_name, Key=object_name)
+        # print(f'{object_name} exists in {bucket_name} bucket.')
+        return 1
+    except:
+        print(f'file not found: s3://{bucket_name}/{object_name}')
+        return 0
+        print(f'{object_name} does not exist in {bucket_name} bucket.')
